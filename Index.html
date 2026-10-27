@@ -1,0 +1,96 @@
+"action": {
+                "type": "uri",
+                "label": "action",
+                "uri": "https://rebrand.ly/SIAM85"
+              },
+              "margin": "none",
+              "position": "relative",
+              "paddingAll": "none",
+              "paddingTop": "none",
+              "paddingBottom": "none",
+              "paddingStart": "none",
+              "paddingEnd": "none",
+              "borderWidth": "none"
+            },
+            "footer": {
+              "type": "box",
+              "layout": "vertical",
+              "spacing": "md",
+              "contents": [
+                {
+                  "type": "button",
+                  "style": "primary",
+                  "action": {
+                    "type": "uri",
+                    "label": "👉🏻 สมัครสมาชิก",
+                    "uri": "https://rebrand.ly/JUAD88"
+                  },
+                  "color": "#FF6699"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "uri",
+                    "label": "👉🏻 รับโค้ดเพิ่ม !💸",
+                    "uri": "https://rebrand.ly/SIAM85"
+                  },
+                  "color": "#FF6666",
+                  "height": "sm",
+                  "style": "secondary"
+                }
+              ],
+              "backgroundColor": "#000000",
+              "margin": "none",
+              "justifyContent": "center",
+              "borderWidth": "none",
+              "action": {
+                "type": "uri",
+                "label": "action",
+                "uri": "https://rebrand.ly/SIAM85"
+              }
+            },
+            "styles": {
+              "footer": {
+                "backgroundColor": "#000000"
+              }
+            }
+          }
+        ]
+      }
+    };
+
+    async function initAndShare() {
+      try {
+        await liff.init({ liffId: "2012228732-rY9NxTIH" });
+
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        async function triggerPicker() {
+          if (liff.isApiAvailable('shareTargetPicker')) {
+            const res = await liff.shareTargetPicker([flexMessage]);
+            if (res) {
+              liff.closeWindow();
+            }
+          } else {
+            alert('เบราว์เซอร์นี้ไม่รองรับการแชร์');
+          }
+        }
+
+        triggerPicker();
+
+        const btn = document.getElementById('retryBtn');
+        btn.style.display = 'inline-block';
+        btn.onclick = triggerPicker;
+
+      } catch (err) {
+        console.error('LIFF Init error:', err);
+      }
+    }
+
+    window.onload = initAndShare;
+  </script>
+</body>
+</html>
