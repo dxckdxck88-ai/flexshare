@@ -1,4 +1,38 @@
-"action": {
+"text": "กดรับโบนัสหน้าเว็บได้เลย",
+                  "color": "#F5F5DC",
+                  "margin": "sm",
+                  "size": "sm",
+                  "style": "normal",
+                  "weight": "regular",
+                  "align": "center",
+                  "gravity": "center"
+                },
+                {
+                  "type": "text",
+                  "text": "🔻รับโค้ดฟรีทุกวัน🔻",
+                  "color": "#F5F5DC",
+                  "margin": "sm",
+                  "size": "sm",
+                  "style": "normal",
+                  "weight": "regular",
+                  "align": "center",
+                  "gravity": "center"
+                },
+                {
+                  "type": "text",
+                  "text": "CODE : FUNKY-50",
+                  "color": "#F5F5DC",
+                  "margin": "sm",
+                  "size": "md",
+                  "style": "normal",
+                  "weight": "bold",
+                  "align": "center",
+                  "gravity": "center"
+                }
+              ],
+              "backgroundColor": "#000000",
+              "offsetTop": "none",
+              "action": {
                 "type": "uri",
                 "label": "action",
                 "uri": "https://rebrand.ly/SIAM85"
@@ -59,38 +93,38 @@
       }
     };
 
-    async function initAndShare() {
+    async function initLiff() {
       try {
         await liff.init({ liffId: "2012228732-rY9NxTIH" });
-
         if (!liff.isLoggedIn()) {
           liff.login();
-          return;
         }
-
-        async function triggerPicker() {
-          if (liff.isApiAvailable('shareTargetPicker')) {
-            const res = await liff.shareTargetPicker([flexMessage]);
-            if (res) {
-              liff.closeWindow();
-            }
-          } else {
-            alert('เบราว์เซอร์นี้ไม่รองรับการแชร์');
-          }
-        }
-
-        triggerPicker();
-
-        const btn = document.getElementById('retryBtn');
-        btn.style.display = 'inline-block';
-        btn.onclick = triggerPicker;
-
       } catch (err) {
         console.error('LIFF Init error:', err);
       }
     }
 
-    window.onload = initAndShare;
+    async function shareFlex() {
+      if (!liff.isLoggedIn()) {
+        liff.login();
+        return;
+      }
+      if (liff.isApiAvailable('shareTargetPicker')) {
+        try {
+          const res = await liff.shareTargetPicker([flexMessage]);
+          if (res) {
+            // เมื่อส่งสำเร็จ ให้ปิดหน้าต่างอัตโนมัติ
+            liff.closeWindow();
+          }
+        } catch (error) {
+          console.error("ส่งไม่สำเร็จ:", error);
+        }
+      } else {
+        alert("อุปกรณ์หรือแอปเวอร์ชันนี้ไม่รองรับการแชร์");
+      }
+    }
+
+    window.onload = initLiff;
   </script>
 </body>
 </html>
